@@ -15,15 +15,10 @@ function buscarCep(cep) {
   );
 }
 
-async function obterLogradouroPorCep(cep) {
-  return buscarCep(cep).then((data) => {
-    logradouro = data.logradouro;
-  });
-  return logradouro;
-}
 buscarCep("40210715").then((data) => console.log(data.logradouro));
 // -----------------------------------------------------------
 fetch("https://cat-fact.herokuapp.com/facts/")
   .then((response) => response.json())
   .then((response) => response[0])
-  .then((fact) => console.log(fact.text));
+  .then((fact) => console.log(fact.text))
+  .catch((e) => console.log(e));
