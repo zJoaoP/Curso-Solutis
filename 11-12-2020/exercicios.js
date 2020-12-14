@@ -21,6 +21,9 @@ async function obterLogradouroPorCep(cep) {
   });
   return logradouro;
 }
-
-console.log(obterLogradouroPorCep("40210715"));
 buscarCep("40210715").then((data) => console.log(data.logradouro));
+// -----------------------------------------------------------
+fetch("https://cat-fact.herokuapp.com/facts/")
+  .then((response) => response.json())
+  .then((response) => response[0])
+  .then((fact) => console.log(fact.text));
