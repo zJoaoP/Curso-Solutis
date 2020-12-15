@@ -22,8 +22,7 @@ database.then((db) => {
   });
 
   app.post("/show", (req, res) => {
-    //criar a coleção “data”, que irá armazenar nossos dados
-    db.collection("data").save(req.body, (err, result) => {
+    db.collection("users").save(req.body, (err, result) => {
       if (err) return console.log(err);
 
       console.log("Salvo no Banco de Dados");
@@ -31,16 +30,17 @@ database.then((db) => {
     });
   });
 
-  app.get("/", (req, res) => {
-    var cursor = db.collection("data").find();
-  });
-
   app.get("/show", (req, res) => {
-    db.collection("data")
+    db.collection("users")
       .find()
-      .toArray((err, results) => {
+      .toArray((err, users) => {
         if (err) return console.log(err);
-        res.render("show.ejs", { data: results });
+        db.collection("products")
+          .find()
+          .toArray((err, products) => {
+            if (err) return console.log(err);
+            res.render("show.ejs", { users: users, products: products });
+          });
       });
   });
 
@@ -49,11 +49,11 @@ database.then((db) => {
     .get((req, res) => {
       var id = req.params.id;
 
-      db.collection("data")
+      db.collection("users")
         .find(ObjectId(id))
         .toArray((err, result) => {
           if (err) return res.send(err);
-          res.render("edit.ejs", { data: result });
+          res.render("edit.ejs", { user: result });
         });
     })
     .post((req, res) => {
@@ -61,7 +61,7 @@ database.then((db) => {
       var name = req.body.name;
       var surname = req.body.surname;
 
-      db.collection("data").updateOne(
+      db.collection("users").updateOne(
         { _id: ObjectId(id) },
         {
           $set: {
@@ -80,10 +80,65 @@ database.then((db) => {
   app.route("/delete/:id").get((req, res) => {
     var id = req.params.id;
 
-    db.collection("data").deleteOne({ _id: ObjectId(id) }, (err, result) => {
+    db.collection("users").deleteOne({ _id: ObjectId(id) }, (err, result) => {
       if (err) return res.send(500, err);
       console.log("Deletado do Banco de Dados!");
       res.redirect("/show");
     });
+  });
+
+  app
+    .route("/products")
+    .get((req, res) => {
+      res.render("products.ejs");
+    })
+    .post((req, res) => {
+      db.collection("products").insertOne(req.body, (err, result) => {
+        if (err) return console.log(err);
+
+        res.redirect("/show");
+      });
+    });
+
+  app
+    .route("/edit_product/:id")
+    .get((req, res) => {
+      const id = req.params.id;
+      const product = db
+        .collection("products")
+        .findOne(ObjectId(id))
+        .then((product) => {
+          res.render("edit_product.ejs", { product: product });
+        });
+    })
+    .post((req, res) => {
+      const id = req.params.id;
+
+      db.collection("products").updateOne(
+        { _id: ObjectId(id) },
+        {
+          $set: {
+            name: req.body.name,
+            brand: req.body.brand,
+            price: req.body.price,
+          },
+        },
+        (err, result) => {
+          if (err) return res.send(err);
+          res.redirect("/show");
+          console.log("Atualizado no Banco de Dados");
+        }
+      );
+    });
+
+  app.route("/delete_product/:id").get((req, res) => {
+    const id = req.params.id;
+    db.collection("products").deleteOne(
+      { _id: ObjectId(id) },
+      (err, result) => {
+        if (err) return res.send(500, err);
+        res.redirect("/show");
+      }
+    );
   });
 });

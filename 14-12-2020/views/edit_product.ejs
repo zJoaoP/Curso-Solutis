@@ -6,14 +6,13 @@
   </head>
   <body>
     <h2>Editar Registro</h2>
-    <% user.forEach(function(details) { %>
-    <form action="/edit/<%= details._id %>" method="POST">
-      <input type="text" value="<%= details.name %>" name="name" />
-      <input type="text" value="<%= details.surname %>" name="surname" />
+    <form action="/edit_product/<%= product._id %>" method="POST">
+      <input type="text" value="<%= product.name %>" name="name" />
+      <input type="text" value="<%= product.brand %>" name="brand" />
+      <input type="text" value="<%= product.price %>" name="price" />
       <br />
       <button><a href="/show">Todos</a></button>
       <button type="submit">Editar</button>
     </form>
-    <% }) %>
   </body>
 </html>
