@@ -1,11 +1,11 @@
 import React from "react";
 
-import TodoList from "./TodoList";
+import Cronometro from "./components/Cronometro";
 
 export default function App() {
   return (
     <div id="app">
-      <TodoList />
+      <Cronometro />
     </div>
   );
 }
