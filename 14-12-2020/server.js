@@ -87,18 +87,13 @@ database.then((db) => {
     });
   });
 
-  app
-    .route("/products")
-    .get((req, res) => {
-      res.render("products.ejs");
-    })
-    .post((req, res) => {
-      db.collection("products").insertOne(req.body, (err, result) => {
-        if (err) return console.log(err);
+  app.route("/products").post((req, res) => {
+    db.collection("products").insertOne(req.body, (err, result) => {
+      if (err) return console.log(err);
 
-        res.redirect("/show");
-      });
+      res.redirect("/show");
     });
+  });
 
   app
     .route("/edit_product/:id")
