@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>My CRUD in NodeJS</title>
+  </head>
+  <body>
+    <h2>Registros</h2>
+    <table border="1">
+      <thead>
+        <tr>
+          <td>Nome</td>
+          <td>Sobrenome</td>
+          <td>Ação</td>
+        </tr>
+      </thead>
+      <tbody>
+        <% users.forEach(function(user) { %>
+        <tr>
+          <td><%= user.name %></td>
+          <td><%= user.surname %></td>
+          <td>
+            <a href="/edit/<%= user._id %>">Editar</a> -
+            <a href="/delete/<%= user._id %>">Deletar</a>
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+    <button><a href="/">Novo Usuário</a></button>
+    <table border="1">
+      <thead>
+        <tr>
+          <td>Nome</td>
+          <td>Marca</td>
+          <td>Preço</td>
+          <td>Ação</td>
+        </tr>
+      </thead>
+      <tbody>
+        <% products.forEach(function(product){ %>
+        <tr>
+          <td><%= product.name %></td>
+          <td><%= product.brand %></td>
+          <td><%= product.price %></td>
+          <td>
+            <a href="/edit_product/<%= product._id %>">Editar</a>
+            -
+            <a href="/delete_product/<%= product._id %>">Deletar</a>
+          </td>
+        </tr>
+        <%}) %>
+      </tbody>
+    </table>
+    <button><a href="/">Novo Produto</a></button>
+  </body>
+</html>
