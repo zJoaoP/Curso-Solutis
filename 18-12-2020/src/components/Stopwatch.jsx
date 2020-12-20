@@ -27,7 +27,7 @@ export default function Stopwatch() {
   }
 
   return (
-    <div>
+    <div id="stopwatch-wrapper">
       <Display seconds={seconds} />
       <button onClick={handleStartButton}>{!running ? "Start" : "Stop"}</button>
       <button onClick={handleRestartButton}>Restart</button>

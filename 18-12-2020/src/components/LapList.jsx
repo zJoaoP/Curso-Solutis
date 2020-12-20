@@ -1,25 +1,33 @@
 import React from "react";
 
-import { secondsToHours, secondsToMinutes } from "../helpers/conversions";
+import { secondsToString } from "../helpers/conversions";
 
 export default function LapList({ seconds }) {
   const [laps, setLaps] = React.useState([]);
 
-  function handleLapButton() {
+  function handleRegisterLapButton() {
     setLaps([...laps, seconds]);
+  }
+
+  function handleClearLapsButton() {
+    setLaps([]);
   }
 
   return (
     <div>
       <h1>Last Laps</h1>
-      <button onClick={handleLapButton}>Register Lap</button>
+      <button onClick={handleRegisterLapButton}>Register Lap</button>
+      <button onClick={handleClearLapsButton}>Clear Laps</button>
       <ul>
-        {laps.map((time, i) => (
-          <li key={time}>
-            {i + 1} - {secondsToHours(time) % 24}:{secondsToMinutes(time) % 60}:
-            {time % 60}
-          </li>
-        ))}
+        {laps.length > 0 ? (
+          laps.map((time, i) => (
+            <li key={time}>
+              {i + 1} - {secondsToString(time)}
+            </li>
+          ))
+        ) : (
+          <h2>Empty lap list</h2>
+        )}
       </ul>
     </div>
   );
