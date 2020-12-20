@@ -1,11 +1,6 @@
 import React from "react";
-
-import Cronometro from "./components/Cronometro";
+import Stopwatch from "./components/Stopwatch";
 
 export default function App() {
-  return (
-    <div id="app">
-      <Cronometro />
-    </div>
-  );
+  return <Stopwatch />;
 }

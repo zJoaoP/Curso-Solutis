@@ -1,13 +1,13 @@
 import React from "react";
 
-import { segundosParaHoras, segundosParaMinutos } from "../helpers/conversions";
+import { secondsToHours, secondsToMinutes } from "../helpers/conversions";
 
-export default function Display({ segundos }) {
+export default function Display({ seconds }) {
   return (
     <div>
       <h1>
-        {segundosParaHoras(segundos)}:{segundosParaMinutos(segundos)}:
-        {segundos % 60}
+        {secondsToHours(seconds) % 24}:{secondsToMinutes(seconds) % 60}:
+        {seconds % 60}
       </h1>
     </div>
   );
