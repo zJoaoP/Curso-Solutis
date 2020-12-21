@@ -17,7 +17,7 @@ export default function Stopwatch() {
       setTick(
         setInterval(() => {
           setSeconds((seconds) => seconds + 1);
-        }, 100)
+        }, 1000)
       );
     } else {
       clearInterval(tick);
