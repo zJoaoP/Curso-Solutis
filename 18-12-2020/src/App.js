@@ -1,6 +1,12 @@
 import React from "react";
-import Stopwatch from "./components/Stopwatch";
+import GlobalStyle from "./GlobalStyle";
+import Stopwatch from "./components/Stopwatch/Stopwatch";
 
 export default function App() {
-  return <Stopwatch />;
+  return (
+    <div id="app">
+      <GlobalStyle />
+      <Stopwatch />
+    </div>
+  );
 }
