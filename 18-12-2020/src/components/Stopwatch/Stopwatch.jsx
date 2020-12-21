@@ -35,7 +35,7 @@ export default function Stopwatch() {
         <Display seconds={seconds} />
         <ButtonWrapper id="stopwatch-button-wrapper">
           <Button onClick={handleStartButton} id="stopwatch-start-button">
-            {!running ? "Iniciar" : "Parar"}
+            {!running ? "Iniciar" : "Pausar"}
           </Button>
           <Button onClick={handleRestartButton} id="stopwatch-restart-button">
             Recomeçar
